@@ -1,0 +1,39 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+    />
+    <title>Tareas app</title>
+  </head>
+  <body>
+    <div class="container ui raised very padded text container segment" style="margin-top: 50px;">
+      <div class="ui container">
+        <h1 class="ui center aligned header">Tareas App</h1>
+        <form class="ui form" action="/add" method="POST">
+          <div class="field">
+            <input type="text" placeholder="Agregar tarea" name="title" />
+          </div>
+          <input class="ui primary button" type="submit" value="Agregar" />
+        </form>
+        <h1>Listado de tareas</h1>
+        {% for todo in todo_list %}
+        <div class="ui segment">
+          <p class="ui big header">{{ todo.title }}</p>
+          {% if todo.completed == False %}
+          <span class="ui negative basic button">No completado</span>
+          {% else %}
+          <span class="ui primary basic button">completado</span>
+          {% endif %}
+          <a  class="ui blue button" href="{{url_for('update', id=todo.id)}}">Actualizar</a>
+          <a class="ui red button" href="{{url_for('delete', id=todo.id)}}">Borrar</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  </body>
+</html>
